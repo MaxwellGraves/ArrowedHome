@@ -8,32 +8,27 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#CE93D8"
-    tools:context="com.arrowedhome.arrowedhome.MainActivity">
+    tools:context="com.arrowedhome.arrowedhome.SizeActivity">
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Settings"
-        android:textSize="40sp"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:text="Select a Grid Size"
+        android:textSize="45sp"
         android:fontFamily="sans-serif-light"
         android:textStyle="bold|italic"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="150sp"
-        android:layout_marginLeft="150sp"
         />
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Play"
-        android:textSize="40sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="3"
+        android:textSize="45sp"
         android:fontFamily="sans-serif-light"
         android:textStyle="bold|italic"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="215sp"
-        android:layout_marginLeft="150sp"
         android:clickable="true"
-        android:onClick="play"
+        android:onClick="three"
         />
 
 </RelativeLayout>
