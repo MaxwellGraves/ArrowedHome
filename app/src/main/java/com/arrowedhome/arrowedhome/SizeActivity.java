@@ -14,8 +14,18 @@ public class SizeActivity extends AppCompatActivity {
         Intent i = getIntent();
     }
     public void three(){
-        Intent i = new Intent(this,DfficultyActivity.class);
+        Intent i = new Intent(this,DifficultyActivity.class);
         i.putExtra("arrowedhome.size", "3");
+        startActivity(i);
+    }
+    public void four(){
+        Intent i = new Intent(this,DifficultyActivity.class);
+        i.putExtra("arrowedhome.size", "4");
+        startActivity(i);
+    }
+    public void five(){
+        Intent i = new Intent(this,DifficultyActivity.class);
+        i.putExtra("arrowedhome.size", "5");
         startActivity(i);
     }
 }
