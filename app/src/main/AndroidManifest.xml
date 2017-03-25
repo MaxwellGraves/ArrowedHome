@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SizeActivity" />
-        <activity android:name=".DifficultyActivity"></activity>
+        <activity android:name=".DifficultyActivity" />
+        <activity android:name=".GameActivity"></activity>
     </application>
 
 </manifest>
