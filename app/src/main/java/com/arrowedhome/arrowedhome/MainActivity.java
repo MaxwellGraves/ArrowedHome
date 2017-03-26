@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static boolean timeOn = true;
+    public static boolean moveOn = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -14,6 +15,10 @@ public class MainActivity extends AppCompatActivity {
     }
     public void play(View v){
         Intent i = new Intent(this,SizeActivity.class);
+        startActivity(i);
+    }
+    public void settings(){
+        Intent i = new Intent(this,SettingsActivity.class);
         startActivity(i);
     }
 }
