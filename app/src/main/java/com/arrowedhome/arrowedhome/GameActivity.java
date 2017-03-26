@@ -158,6 +158,37 @@ public class GameActivity extends AppCompatActivity {
         Vector bluenew = new Vector(blue.x, blue.y);
         mem.add(new Tuple(rednew, bluenew));
     }
+    public void undo(View v){
+        Tuple t;
+        if(mem.size() >= 2){
+            t = mem.get(mem.size()-1);
+            Vector redtemp = t.get(0);
+            Vector bluetemp = t.get(1);
+            f[redtemp.x][redtemp.y].removeView(redc);
+            f[bluetemp.x][bluetemp.y].removeView(bluec);
+            mem.remove(mem.size()-1);
+            t = mem.get(mem.size()-1);
+            red = t.get(0);
+            blue = t.get(1);
+            f[red.x][red.y].addView(redc);
+            f[blue.x][blue.y].addView(bluec);
+        }
+    }
+    public void restart(View v){
+        Tuple t;
+        t = mem.get(mem.size()-1);
+        Vector redtemp = t.get(0);
+        Vector bluetemp = t.get(1);
+        f[redtemp.x][redtemp.y].removeView(redc);
+        f[bluetemp.x][bluetemp.y].removeView(bluec);
+        t = mem.get(0);
+        mem = new ArrayList<Tuple>();
+        mem.add(t);
+        red = t.get(0);
+        blue = t.get(1);
+        f[red.x][red.y].addView(redc);
+        f[blue.x][blue.y].addView(bluec);
+    }
     public static Tuple findPuzzle(int lo, int hi, int w){
         Vector puzz = new Vector(-1, -1);
         ArrowGrid v;
