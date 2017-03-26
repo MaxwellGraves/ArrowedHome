@@ -21,15 +21,18 @@ public class GameActivity extends AppCompatActivity {
     int hi, lo, width;
     ArrayList<Tuple> mem;
     ImageView[][] arrimgs;
-    Vector red, blue;
-    ImageView redc, bluec;
+    Vector red, blue, e1, e2;
+    ImageView redc, bluec, switcher;
     FrameLayout[][] f;
     int DWidth;
     ArrowGrid g;
+    String top;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        top = "blue";
 
         Intent i = getIntent();
         String[] dif = i.getStringExtra("arrowedhome.dif").split(" ");
@@ -44,13 +47,16 @@ public class GameActivity extends AppCompatActivity {
         Tuple end = posToRCPair(puzz.y, g);
         Vector s1 = start.get(0);
         Vector s2 = start.get(1);
-        Vector e1 = end.get(0);
-        Vector e2 = end.get(1);
+        e1 = end.get(0);
+        e2 = end.get(1);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int DHeight = displayMetrics.heightPixels;
         DWidth = displayMetrics.widthPixels;
+
+        switcher = (ImageView) findViewById(R.id.switcher);
+        switcher.setAlpha(0f);
 
         GridLayout gv = (GridLayout) findViewById(R.id.arrowgridview);
         gv.setRowCount(width);
@@ -108,6 +114,7 @@ public class GameActivity extends AppCompatActivity {
                 {
                     red.y += g.arrows[blue.x][blue.y].x;
                     red.x += g.arrows[blue.x][blue.y].y;
+                    if(red.equals(blue)) top = "red";
                     addToMem();
                 }
                 updatePointers();
@@ -131,6 +138,7 @@ public class GameActivity extends AppCompatActivity {
                 {
                     blue.y += g.arrows[red.x][red.y].x;
                     blue.x += g.arrows[red.x][red.y].y;
+                    if(red.equals(blue)) top = "blue";
                     addToMem();
                 }
                 updatePointers();
@@ -152,11 +160,37 @@ public class GameActivity extends AppCompatActivity {
         }
         f[red.x][red.y].addView(redc);
         f[blue.x][blue.y].addView(bluec);
+        if(red.equals(blue)){
+            switcher.setAlpha(1f);
+        }
+        else switcher.setAlpha(0f);
+        if(red.equals(e1) && blue.equals(e2)){
+            Intent i = new Intent(this, WinActivity.class);
+            startActivity(i);
+        }
     }
     public void addToMem(){
         Vector rednew = new Vector(red.x, red.y);
         Vector bluenew = new Vector(blue.x, blue.y);
         mem.add(new Tuple(rednew, bluenew));
+    }
+    public void swap(View v){
+        if(red.equals(blue)){
+            if(top.equals("red")){
+                f[red.x][red.y].removeView(bluec);
+                f[red.x][red.y].removeView(redc);
+                f[red.x][red.y].addView(bluec);
+                f[red.x][red.y].addView(redc);
+                top = "blue";
+            }
+            else if(top.equals("blue")){
+                f[red.x][red.y].removeView(bluec);
+                f[red.x][red.y].removeView(redc);
+                f[red.x][red.y].addView(redc);
+                f[red.x][red.y].addView(bluec);
+                top = "red";
+            }
+        }
     }
     public void undo(View v){
         Tuple t;
@@ -168,10 +202,16 @@ public class GameActivity extends AppCompatActivity {
             f[bluetemp.x][bluetemp.y].removeView(bluec);
             mem.remove(mem.size()-1);
             t = mem.get(mem.size()-1);
-            red = t.get(0);
-            blue = t.get(1);
+            redtemp = t.get(0);
+            bluetemp = t.get(1);
+            red = new Vector(redtemp.x, redtemp.y);
+            blue = new Vector(bluetemp.x, bluetemp.y);
             f[red.x][red.y].addView(redc);
             f[blue.x][blue.y].addView(bluec);
+            if(red.equals(blue)){
+                switcher.setAlpha(1f);
+            }
+            else switcher.setAlpha(0f);
         }
     }
     public void restart(View v){
@@ -184,10 +224,17 @@ public class GameActivity extends AppCompatActivity {
         t = mem.get(0);
         mem = new ArrayList<Tuple>();
         mem.add(t);
-        red = t.get(0);
-        blue = t.get(1);
+        redtemp = t.get(0);
+        bluetemp = t.get(1);
+        red = new Vector(redtemp.x, redtemp.y);
+        blue = new Vector(bluetemp.x, bluetemp.y);
         f[red.x][red.y].addView(redc);
         f[blue.x][blue.y].addView(bluec);
+        if(red.equals(blue)){
+            switcher.setAlpha(1f);
+        }
+        else switcher.setAlpha(0f);
+        top = "blue";
     }
     public static Tuple findPuzzle(int lo, int hi, int w){
         Vector puzz = new Vector(-1, -1);
