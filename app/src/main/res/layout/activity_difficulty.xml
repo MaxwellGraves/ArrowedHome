@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#CE93D8"
+    android:background="#0099ff"
     tools:context="com.arrowedhome.arrowedhome.DifficultyActivity">
     <TextView
         android:layout_width="match_parent"
@@ -16,8 +16,9 @@
         android:layout_alignParentTop="true"
         android:text="Select a Difficulty"
         android:textSize="45sp"
-        android:fontFamily="sans-serif-light"
-        android:textStyle="bold|italic"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
         />
     <TextView
         android:layout_width="match_parent"
@@ -27,8 +28,9 @@
         android:text="Easy"
         android:textSize="45sp"
         android:layout_marginTop="150sp"
-        android:fontFamily="sans-serif-light"
-        android:textStyle="bold|italic"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textColor="#00FF00"
         android:clickable="true"
         android:onClick="easy"
         />
@@ -40,8 +42,9 @@
         android:text="Medium"
         android:textSize="45sp"
         android:layout_marginTop="225sp"
-        android:fontFamily="sans-serif-light"
-        android:textStyle="bold|italic"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textColor="#ffff00"
         android:clickable="true"
         android:onClick="medium"
         />
@@ -53,8 +56,9 @@
         android:text="Hard"
         android:textSize="45sp"
         android:layout_marginTop="300sp"
-        android:fontFamily="sans-serif-light"
-        android:textStyle="bold|italic"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textColor="#dd0000"
         android:clickable="true"
         android:onClick="hard"
         />
