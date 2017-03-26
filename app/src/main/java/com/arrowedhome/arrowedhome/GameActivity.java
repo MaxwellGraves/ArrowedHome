@@ -1,17 +1,31 @@
 package com.arrowedhome.arrowedhome;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import java.util.*;
 
 public class GameActivity extends AppCompatActivity {
     int hi, lo, width;
+    ArrayList<Tuple> mem;
+    ImageView[][] arrimgs;
+    Vector red, blue;
+    ImageView redc, bluec;
+    FrameLayout[][] f;
+    int DWidth;
+    ArrowGrid g;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +38,7 @@ public class GameActivity extends AppCompatActivity {
         width = Integer.parseInt(i.getStringExtra("arrowedhome.size"));
 
         Tuple t = findPuzzle(lo, hi, width);
-        ArrowGrid g = t.get(0);
+        g = t.get(0);
         Vector puzz = t.get(1);
         Tuple start = posToRCPair(puzz.x, g);
         Tuple end = posToRCPair(puzz.y, g);
@@ -36,20 +50,113 @@ public class GameActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int DHeight = displayMetrics.heightPixels;
-        int DWidth = displayMetrics.widthPixels;
+        DWidth = displayMetrics.widthPixels;
 
         GridLayout gv = (GridLayout) findViewById(R.id.arrowgridview);
         gv.setRowCount(width);
         gv.setColumnCount(width);
+
+        f = new FrameLayout[width][width];
+
+        arrimgs = new ImageView[width][width];
         for(int r = 0; r < width; r++){
             for(int c = 0; c < width; c++){
-                ImageView img = new ImageView(this);
-                img.setImageResource(R.drawable.arrow);
-                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(DWidth/width-30, DWidth/width-30);
-                img.setLayoutParams(params);
-                gv.addView(img);
+
+                f[r][c] = new FrameLayout(this);
+                arrimgs[r][c] = new ImageView(this);
+                arrimgs[r][c].setImageResource(R.drawable.arrow);
+
+                String dir = g.arrows[r][c].toString();
+                int rotNum = findRotNum(dir);
+                arrimgs[r][c].setRotation((float) 45*rotNum);
+
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams((DWidth/width*7/8), (DWidth/width)*7/8);
+                int pad = (DWidth/8)/(2*width)*(17/9);
+                arrimgs[r][c].setLayoutParams(params);
+                arrimgs[r][c].setPadding(pad*2, pad, pad*2, pad);
+
+                if(r == e1.x && c == e1.y)
+                    arrimgs[r][c].setColorFilter(Color.argb(255, 255, 0, 0));
+                if(r == e2.x && c == e2.y)
+                    arrimgs[r][c].setColorFilter(Color.argb(255, 0, 0, 255));
+
+                gv.addView(f[r][c]);
+                f[r][c].addView(arrimgs[r][c]);
             }
         }
+
+        red = s1;
+        blue = s2;
+
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams((DWidth/width*7/8), (DWidth/width)*7/8);
+
+        redc = new ImageButton(this);
+        redc.setImageResource(R.drawable.circle);
+        int pad = (DWidth/8)/(2*width)*(17/9);
+        redc.setLayoutParams(params);
+        redc.setPadding(pad*2, pad, pad*2, pad);
+        redc.setColorFilter(Color.argb(255, 255, 0, 0));
+        redc.setAlpha(0.4f);
+        redc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(red.y + g.arrows[blue.x][blue.y].x > width-1 || red.x + g.arrows[blue.x][blue.y].y>width-1)
+                    return;
+                else if(red.y + g.arrows[blue.x][blue.y].x <0 || red.x + g.arrows[blue.x][blue.y].y<0)
+                    return;
+                else
+                {
+                    red.y += g.arrows[blue.x][blue.y].x;
+                    red.x += g.arrows[blue.x][blue.y].y;
+                    addToMem();
+                }
+                updatePointers();
+            }
+        });
+        bluec = new ImageButton(this);
+        bluec.setImageResource(R.drawable.circle);
+        bluec.setLayoutParams(params);
+        bluec.setPadding(pad*2, pad, pad*2, pad);
+        bluec.setColorFilter(Color.argb(255, 0, 0, 255));
+        bluec.setAlpha(0.4f);
+        bluec.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v)
+            {
+
+                if(blue.y + g.arrows[red.x][red.y].x > width-1 || blue.x + g.arrows[red.x][red.y].y>width-1)
+                    return;
+                else if(blue.y + g.arrows[red.x][red.y].x <0 || blue.x + g.arrows[red.x][red.y].y<0)
+                    return;
+                else
+                {
+                    blue.y += g.arrows[red.x][red.y].x;
+                    blue.x += g.arrows[red.x][red.y].y;
+                    addToMem();
+                }
+                updatePointers();
+            }
+        });
+        mem = new ArrayList<Tuple>();
+        addToMem();
+        updatePointers();
+
+    }
+    public void updatePointers(){
+        Tuple t;
+        if(mem.size() >= 2){
+            t = mem.get(mem.size()-2);
+            Vector redtemp = t.get(0);
+            Vector bluetemp = t.get(1);
+            f[redtemp.x][redtemp.y].removeView(redc);
+            f[bluetemp.x][bluetemp.y].removeView(bluec);
+        }
+        f[red.x][red.y].addView(redc);
+        f[blue.x][blue.y].addView(bluec);
+    }
+    public void addToMem(){
+        Vector rednew = new Vector(red.x, red.y);
+        Vector bluenew = new Vector(blue.x, blue.y);
+        mem.add(new Tuple(rednew, bluenew));
     }
     public static Tuple findPuzzle(int lo, int hi, int w){
         Vector puzz = new Vector(-1, -1);
@@ -63,5 +170,16 @@ public class GameActivity extends AppCompatActivity {
     }
     public static Tuple posToRCPair(int x, ArrowGrid g){
         return new Tuple(new Vector((x/g.cells)/g.w, (x/g.cells)%g.w), new Vector((x%g.cells)/g.w, (x%g.cells)%g.w));
+    }
+    public static int findRotNum(String dir){
+        if(dir.equals("N")) return 5;
+        else if(dir.equals("E")) return 7;
+        else if(dir.equals("S")) return 1;
+        else if(dir.equals("W")) return 3;
+        else if(dir.equals("NE")) return 6;
+        else if(dir.equals("NW")) return 4;
+        else if(dir.equals("SE")) return 0;
+        else if(dir.equals("SW")) return 2;
+        return 0;
     }
 }
