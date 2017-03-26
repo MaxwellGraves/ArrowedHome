@@ -12,6 +12,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Learn"
+        android:textSize="40sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="125sp"
+        android:layout_marginLeft="150sp"
+        android:clickable="true"
+        android:onClick="learn"
+        android:alpha="0.7"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Settings"
         android:textSize="40sp"
         android:fontFamily="sans-serif"
@@ -19,8 +35,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:textColor="#ffffff"
-        android:layout_marginBottom="150sp"
+        android:layout_marginBottom="200sp"
         android:layout_marginLeft="150sp"
+        android:clickable="true"
+        android:onClick="settings"
         android:alpha="0.7"
         />
     <TextView
@@ -32,7 +50,7 @@
         android:textStyle="bold"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="215sp"
+        android:layout_marginBottom="275sp"
         android:textColor="#ffffff"
         android:layout_marginLeft="150sp"
         android:clickable="true"

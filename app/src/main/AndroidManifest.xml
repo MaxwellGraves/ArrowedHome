@@ -14,10 +14,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SettingsActivity" />
         <activity android:name=".SizeActivity" />
         <activity android:name=".DifficultyActivity" />
         <activity android:name=".GameActivity" />
-        <activity android:name=".WinActivity"></activity>
+        <activity android:name=".WinActivity" />
+        <activity android:name=".LearnActivity"></activity>
     </application>
 
 </manifest>

@@ -21,4 +21,8 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this,SettingsActivity.class);
         startActivity(i);
     }
+    public void learn(View v){
+        Intent i = new Intent(this,LearnActivity.class);
+        startActivity(i);
+    }
 }

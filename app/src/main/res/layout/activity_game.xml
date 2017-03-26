@@ -11,8 +11,17 @@
     tools:context="com.arrowedhome.arrowedhome.GameActivity">
     <GridLayout android:id="@+id/arrowgridview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100sp">
     </GridLayout>
+    <TextView android:id="@+id/moves"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="MOVES: 0"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
     <ImageView
         android:adjustViewBounds="true"
         android:maxWidth="42sp"

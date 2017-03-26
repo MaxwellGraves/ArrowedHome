@@ -22,10 +22,11 @@ public class DifficultyActivity extends AppCompatActivity {
         lo = hi = -1;
         switch(width){
             case 3: lo = 7; hi = 12; break;
-            case 4: lo = 15; hi = 20; break;
-            case 5: lo = 30; hi = 35; break;
+            case 4: lo = 10; hi = 15; break;
+            case 5: lo = 15; hi = 20; break;
         }
         i.putExtra("arrowedhome.dif", lo+" "+hi);
+        i.putExtra("arrowedhome.level", "Easy");
         startActivity(i);
     }
     public void medium(View v){
@@ -34,11 +35,12 @@ public class DifficultyActivity extends AppCompatActivity {
         int lo, hi;
         lo = hi = -1;
         switch(width){
-            case 3: lo = 15; hi = 20; break;
-            case 4: lo = 22; hi = 27; break;
-            case 5: lo = 35; hi = 40; break;
+            case 3: lo = 12; hi = 25; break;
+            case 4: lo = 15; hi = 30; break;
+            case 5: lo = 20; hi = 35; break;
         }
         i.putExtra("arrowedhome.dif", lo+" "+hi);
+        i.putExtra("arrowedhome.level", "Medium");
         startActivity(i);
     }
     public void hard(View v){
@@ -47,11 +49,12 @@ public class DifficultyActivity extends AppCompatActivity {
         int lo, hi;
         lo = hi = -1;
         switch(width){
-            case 3: lo = 20; hi = 25; break;
-            case 4: lo = 30; hi = 35; break;
-            case 5: lo = 40; hi = 45; break;
+            case 3: lo = 25; hi = 35; break;
+            case 4: lo = 30; hi = 45; break;
+            case 5: lo = 35; hi = 50; break;
         }
         i.putExtra("arrowedhome.dif", lo+" "+hi);
+        i.putExtra("arrowedhome.level", "Hard");
         startActivity(i);
     }
 }

@@ -15,6 +15,8 @@ import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import java.util.*;
 
 public class GameActivity extends AppCompatActivity {
@@ -24,21 +26,26 @@ public class GameActivity extends AppCompatActivity {
     Vector red, blue, e1, e2;
     ImageView redc, bluec, switcher;
     FrameLayout[][] f;
-    int DWidth;
+    int DWidth, totalMoves;
+    TextView moves;
     ArrowGrid g;
-    String top;
+    String top, level;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        totalMoves = -1;
         top = "blue";
+        moves = (TextView) findViewById(R.id.moves);
+        if(!MainActivity.moveOn) moves.setAlpha(0f);
 
         Intent i = getIntent();
         String[] dif = i.getStringExtra("arrowedhome.dif").split(" ");
         lo = Integer.parseInt(dif[0]);
         hi = Integer.parseInt(dif[1]);
         width = Integer.parseInt(i.getStringExtra("arrowedhome.size"));
+        level = i.getStringExtra("arrowedhome.level");
 
         Tuple t = findPuzzle(lo, hi, width);
         g = t.get(0);
@@ -166,8 +173,12 @@ public class GameActivity extends AppCompatActivity {
         else switcher.setAlpha(0f);
         if(red.equals(e1) && blue.equals(e2)){
             Intent i = new Intent(this, WinActivity.class);
+            i.putExtra("arrowedhome.size", width+"");
+            i.putExtra("arrowedhome.level", level);
             startActivity(i);
         }
+        totalMoves++;
+        moves.setText("MOVES: "+totalMoves);
     }
     public void addToMem(){
         Vector rednew = new Vector(red.x, red.y);
