@@ -7,33 +7,44 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#CE93D8"
+    android:background="#0099ff"
     tools:context="com.arrowedhome.arrowedhome.MainActivity">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settings"
         android:textSize="40sp"
-        android:fontFamily="sans-serif-light"
-        android:textStyle="bold|italic"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
+        android:textColor="#000000"
         android:layout_marginBottom="150sp"
         android:layout_marginLeft="150sp"
+        android:alpha="0.7"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Play"
         android:textSize="40sp"
-        android:fontFamily="sans-serif-light"
-        android:textStyle="bold|italic"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="215sp"
+        android:textColor="#000000"
         android:layout_marginLeft="150sp"
         android:clickable="true"
         android:onClick="play"
+        android:alpha="0.7"
         />
+    <ImageView
+        android:layout_width = "fill_parent"
+        android:layout_height = "fill_parent"
+        android:src = "@drawable/seeThru"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+    />
 
 </RelativeLayout>

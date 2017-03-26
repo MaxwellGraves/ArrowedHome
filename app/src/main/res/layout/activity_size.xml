@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#CE93D8"
+    android:background="#0099ff"
     tools:context="com.arrowedhome.arrowedhome.SizeActivity">
     <TextView
         android:layout_width="match_parent"
@@ -16,8 +16,9 @@
         android:layout_alignParentTop="true"
         android:text="Select a Grid Size"
         android:textSize="45sp"
-        android:fontFamily="sans-serif-light"
-        android:textStyle="bold|italic"
+        android:fontFamily="sans-serif"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
         />
     <TextView
         android:layout_width="match_parent"
@@ -25,9 +26,10 @@
         android:gravity="center"
         android:text="4 x 4"
         android:textSize="45sp"
-        android:fontFamily="sans-serif-light"
-        android:textStyle="bold|italic"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
         android:clickable="true"
+        android:textColor="#ffffff"
         android:onClick="four"/>
     <TextView
         android:layout_width="match_parent"
@@ -38,9 +40,10 @@
         android:text="3 x 3"
         android:textSize="45sp"
         android:layout_marginTop="150sp"
-        android:fontFamily="sans-serif-light"
-        android:textStyle="bold|italic"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
         android:clickable="true"
+        android:textColor="#ffffff"
         android:onClick="three"
         />
     <TextView
@@ -49,9 +52,10 @@
         android:gravity="center"
         android:layout_marginTop="325sp"
         android:text="5 x 5"
+        android:textColor="#ffffff"
         android:textSize="45sp"
-        android:fontFamily="sans-serif-light"
-        android:textStyle="bold|italic"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
         android:clickable="true"
         android:onClick="five"
         />
